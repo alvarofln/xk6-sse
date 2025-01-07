@@ -412,7 +412,7 @@ func (c *Client) readEvents(readChan chan Event, errorChan chan error, closeChan
 			// Retry, do nothing for now
 
 		// end of event
-		case bytes.Equal(line, []byte("\n")):
+		case bytes.Equal(line, []byte("\r\n")) || bytes.Equal(line, []byte("\n")):
 			// Trailing newlines are removed.
 			ev.Data = strings.TrimRightFunc(buf.String(), func(r rune) bool {
 				return r == '\r' || r == '\n'
